@@ -13,9 +13,10 @@ class node(object):
         self.axis = axis
 
 class KDTree(object):
-    def __init__(self, str = 'simple', data = None):
+    def __init__(self, str = 'simple', data = None, mat = None):
         self.dist_kind = str
         self.data = data
+        self.mat = mat
         # print(data[0])
         if len(data) != 0:
             self.all_axis = len(data[0]) - 1
@@ -51,6 +52,12 @@ class KDTree(object):
             xx = np.array(x)
             yy = np.array(y)
             return sum((xx - yy) ** 2)
+        else:
+            xx = np.array(x)
+            yy = np.array(y)
+            t = xx - yy
+            # print('hhhj')
+            return np.dot(np.dot(t, self.mat), t.T)
             # len_x = len(x)
             # # print(len_x, len(y))
             # sum = 0
@@ -97,9 +104,10 @@ class KDTree(object):
         return cnt.argmax()
 
 class KDTree_like_sklearn(object):
-    def __init__(self, dist_kind = 'simple', k = 5):
+    def __init__(self, dist_kind = 'simple', k = 5, mat = None):
         self.dist_kind = dist_kind
         self.k = k
+        self.mat = mat
     def fit(self, X, Y):
         x_list = []
         # print(type(x_list), type(X))
@@ -115,7 +123,7 @@ class KDTree_like_sklearn(object):
             # x_list[i] = t
             # print(type(x_list[i]))
             # x_list[i].append(Y[i])
-        self.kdtree = KDTree(self.dist_kind, x_list)
+        self.kdtree = KDTree(self.dist_kind, x_list, self.mat)
 
     def predict(self, X):
         ans = []

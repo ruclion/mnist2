@@ -36,7 +36,7 @@ def load_train_data():
         # print(filename)
         trainY.append(int(filename[0]))
         t = np.loadtxt(os.path.join(dir_path, filename), str)
-        tt = list(np.zeros(32 * 32))
+        tt = np.zeros(32 * 32)
         for i in range(32):
             for j in range(32):
                 if t[i][j] == '1':
@@ -44,6 +44,8 @@ def load_train_data():
                 else:
                     tt[i * 32 + j] = 0
         trainX.append(tt)
+    trainX = np.array(trainX)
+    trainY = np.array(trainY)
     return trainX, trainY
     # print(trainX[0:2])
 
@@ -72,7 +74,11 @@ testX, testY = load_test_data()
 pca = PCA(n_components=32)
 pca.fit(trainX)
 trainX = pca.transform(trainX)
-print(trainX[0])
+
+trainX_T = trainX.T
+D = np.cov(trainX_T)
+print(trainX_T[0][0:10])
+invD = np.linalg.pinv(D)
 
 # clf = KNeighborsClassifier(n_neighbors=5)
 # score_t = evaluate_classifier_parameters(clf, trainX, trainY, 0.99)
@@ -81,5 +87,9 @@ print(trainX[0])
 # print(score)
 
 clf2 = KDTree_like_sklearn(dist_kind='simple', k=5)
-score_t = evaluate_classifier_parameters(clf2, trainX, trainY, 0.99)
+score_t = evaluate_classifier_parameters(clf2, trainX, trainY, 0.95)
+print(score_t)
+
+clf2 = KDTree_like_sklearn(dist_kind='Mahalanobis', k=5, mat = invD)
+score_t = evaluate_classifier_parameters(clf2, trainX, trainY, 0.95)
 print(score_t)
