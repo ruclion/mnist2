@@ -121,7 +121,7 @@ class KDTree_like_sklearn(object):
     def fit(self, X, Y):
         x_list = []
         # print(type(x_list), type(X))
-        len_x = len(X)
+        len_x = X.shape[0]
         for i in range(len_x):
             if type(X[i]) is not list:
                 t = X[i].tolist()
@@ -143,6 +143,7 @@ class KDTree_like_sklearn(object):
             ans.append(self.kdtree.find_k_near(X[i], self.k, self.way))
             if i % 100 == 0:
                 print('finish: ', i, len_x)
+        ans = np.array(ans)
         return ans
 
 

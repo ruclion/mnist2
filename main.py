@@ -11,12 +11,11 @@ import os
 from KNN_KDTree import KDTree_like_sklearn
 
 def get_score(y_predict, y_test):
-    l = len(y_test)
     ans_eql = 0
-    for i in range(l):
+    for i in range(y_test.shape[0]):
         if(y_predict[i] == y_test[i]):
             ans_eql += 1
-    return ans_eql * 1.0 / l
+    return ans_eql * 1.0 / y_test.shape[0]
 
 def evaluate_classifier(clf, testX, testY):
     y_pre = clf.predict(testX)

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b51e3302-61bf-440e-affc-1df367a226ee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/An improvement to k-nearest neighbor classifier.pdf" afterPath="$PROJECT_DIR$/An improvement to k-nearest neighbor classifier.pdf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/KNN_KDTree.py" afterPath="$PROJECT_DIR$/KNN_KDTree.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
@@ -18,8 +17,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="116" column="12" lean-forward="true" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+            <state relative-caret-position="257">
+              <caret line="69" column="17" lean-forward="true" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -30,8 +29,8 @@
       <file leaf-file-name="KNN_KDTree.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KNN_KDTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1708">
-              <caret line="145" column="18" lean-forward="true" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
+            <state relative-caret-position="189">
+              <caret line="98" column="13" lean-forward="false" selection-start-line="98" selection-start-column="10" selection-end-line="98" selection-end-column="13" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -45,6 +44,8 @@
     <findStrings>
       <find>[:]</find>
       <find>print</find>
+      <find>size</find>
+      <find>len</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -54,8 +55,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/digits/KNN_KDTree.py" />
-        <option value="$PROJECT_DIR$/KNN_KDTree.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/KNN_KDTree.py" />
       </list>
     </option>
   </component>
@@ -270,8 +271,8 @@
     <entry file="file://$PROJECT_DIR$/digits/KNN_KDTree.py" />
     <entry file="file://$PROJECT_DIR$/KNN_KDTree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1708">
-          <caret line="145" column="18" lean-forward="true" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
+        <state relative-caret-position="189">
+          <caret line="98" column="13" lean-forward="false" selection-start-line="98" selection-start-column="10" selection-end-line="98" selection-end-column="13" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -280,8 +281,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="116" column="12" lean-forward="true" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+        <state relative-caret-position="257">
+          <caret line="69" column="17" lean-forward="true" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
