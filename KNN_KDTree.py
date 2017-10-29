@@ -21,9 +21,9 @@ class KDTree(object):
         if len(data) != 0:
             self.all_axis = len(data[0]) - 1
         self.num = len(data)
-        print(self.num)
+        # print(self.num)
         self.rt = self.create(0, 0, self.num - 1, -1)
-        print('rt', self.rt)
+        # print('rt', self.rt)
         self.find_times = 0
 
 
@@ -90,24 +90,34 @@ class KDTree(object):
             self.find_dfs(x, h, rrt, k)
 
 
-    def find_k_near(self, x = None, k = 5):
+    def find_k_near(self, x = None, k = 5, way = None):
         h = []
         self.find_times = 0
         # print(self.rt)
         self.find_dfs(x, h, self.rt, k)
-        print('find_time', self.find_times)
+        # print('find_time', self.find_times)
         h_len = len(h)
-        cnt = np.arange(0, 10)
-        for i in range(h_len):
-            t = heapq.heappop(h)
-            cnt[self.data[t[1]][-1]] += 1
+        cnt = np.zeros(10)
+        if way is None:
+            for i in range(h_len):
+                t = heapq.heappop(h)
+                cnt[self.data[t[1]][-1]] += 1
+        else:
+            dist_list = []
+            for i in range(h_len):
+                t = heapq.heappop(h)
+                dist_list.append((-t[0], self.data[t[1]][-1]))
+            for i in range(h_len):
+                cnt[dist_list[i][1]] += (dist_list[0][0] - dist_list[i][0])/(dist_list[0][0] - dist_list[-1][0])
+                # print((dist_list[0][0] - dist_list[i][0]) / (dist_list[0][0] - dist_list[-1][0]))
         return cnt.argmax()
 
 class KDTree_like_sklearn(object):
-    def __init__(self, dist_kind = 'simple', k = 5, mat = None):
+    def __init__(self, dist_kind = 'simple', k = 5, mat = None, way = None):
         self.dist_kind = dist_kind
         self.k = k
         self.mat = mat
+        self.way = way
     def fit(self, X, Y):
         x_list = []
         # print(type(x_list), type(X))
@@ -130,8 +140,9 @@ class KDTree_like_sklearn(object):
         len_x = len(X)
 
         for i in range(len_x):
-            ans.append(self.kdtree.find_k_near(X[i], self.k))
-            print('finish: ', i, len_x)
+            ans.append(self.kdtree.find_k_near(X[i], self.k, self.way))
+            if i % 100 == 0:
+                print('finish: ', i, len_x)
         return ans
 
 

@@ -64,6 +64,8 @@ def load_test_data():
                 if t[i][j] == '1':
                     tt[i * 32 + j] = 1
         testX.append(tt)
+    testX = np.array(testX)
+    testY = np.array(testY)
     return testX, testY
 
 load_train_data()
@@ -74,15 +76,16 @@ testX, testY = load_test_data()
 pca = PCA(n_components=32)
 pca.fit(trainX)
 trainX = pca.transform(trainX)
+testX = pca.transform(testX)
 
 trainX_T = trainX.T
 D = np.cov(trainX_T)
 print(trainX_T[0][0:10])
 invD = np.linalg.pinv(D)
 
-# clf = KNeighborsClassifier(n_neighbors=5)
-# score_t = evaluate_classifier_parameters(clf, trainX, trainY, 0.99)
-# print(score_t)
+clf1 = KNeighborsClassifier(n_neighbors=5)
+score_t = evaluate_classifier_parameters(clf1, trainX, trainY, 0.95)
+print(score_t)
 # score = evaluate_classifier(clf, pca.transform(testX), testY)
 # print(score)
 
@@ -90,6 +93,25 @@ clf2 = KDTree_like_sklearn(dist_kind='simple', k=5)
 score_t = evaluate_classifier_parameters(clf2, trainX, trainY, 0.95)
 print(score_t)
 
-clf2 = KDTree_like_sklearn(dist_kind='Mahalanobis', k=5, mat = invD)
-score_t = evaluate_classifier_parameters(clf2, trainX, trainY, 0.95)
+clf3 = KDTree_like_sklearn(dist_kind='Mahalanobis', k=5, mat = invD)
+score_t = evaluate_classifier_parameters(clf3, trainX, trainY, 0.95)
 print(score_t)
+
+clf4 = KDTree_like_sklearn(dist_kind='simple', k=5, mat = invD, way='wknn')
+score_t = evaluate_classifier_parameters(clf4, trainX, trainY, 0.95)
+print(score_t)
+
+clf5 = KDTree_like_sklearn(dist_kind='Mahalanobis', k=5, mat = invD, way='wknn')
+score_t = evaluate_classifier_parameters(clf5, trainX, trainY, 0.95)
+print(score_t)
+
+score = evaluate_classifier(clf1, testX, testY)
+print(score)
+score = evaluate_classifier(clf2, testX, testY)
+print(score)
+score = evaluate_classifier(clf3, testX, testY)
+print(score)
+score = evaluate_classifier(clf4, testX, testY)
+print(score)
+score = evaluate_classifier(clf5, testX, testY)
+print(score)
