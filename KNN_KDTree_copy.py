@@ -3,8 +3,6 @@ from __future__ import print_function
 import numpy as np
 import heapq
 import copy
-import sys
-
 
 class node(object):
     def __init__(self, val = None, lrt = None, rrt = None, fa = None, axis = None):
@@ -110,7 +108,11 @@ class KDTree(object):
                 t = heapq.heappop(h)
                 dist_list.append((-t[0], self.data[t[1]][-1]))
             for i in range(h_len):
-                cnt[dist_list[i][1]] += (dist_list[0][0] - dist_list[i][0])/(dist_list[0][0] - dist_list[-1][0])
+                if np.fabs(dist_list[0][0] - dist_list[-1][0]) < 1e-5:
+                    print('use this similar equal weight')
+                    cnt[dist_list[i][1]] += 1
+                else:
+                    cnt[dist_list[i][1]] += (np.sqrt(dist_list[0][0]) - np.sqrt(dist_list[i][0]))/(np.sqrt(dist_list[0][0]) - np.sqrt(dist_list[-1][0]))
                 # print((dist_list[0][0] - dist_list[i][0]) / (dist_list[0][0] - dist_list[-1][0]))
         return cnt.argmax()
 
@@ -137,7 +139,6 @@ class KDTree_like_sklearn(object):
             # x_list[i].append(Y[i])
         self.kdtree = KDTree(self.dist_kind, x_list, self.mat)
 
-
     def predict(self, X):
         ans = []
         len_x = len(X)
@@ -145,10 +146,8 @@ class KDTree_like_sklearn(object):
         for i in range(len_x):
             ans.append(self.kdtree.find_k_near(X[i], self.k, self.way))
             if i % 100 == 0:
-                print('ok:', i, len_x, end=' ')
-                sys.stdout.flush()
+                print('process:', i, len_x, end=' ')
         ans = np.array(ans)
-        print('finished')
         return ans
 
 
