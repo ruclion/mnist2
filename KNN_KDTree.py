@@ -110,8 +110,14 @@ class KDTree(object):
                 t = heapq.heappop(h)
                 dist_list.append((-t[0], self.data[t[1]][-1]))
             for i in range(h_len):
-                cnt[dist_list[i][1]] += (dist_list[0][0] - dist_list[i][0])/(dist_list[0][0] - dist_list[-1][0])
+                # cnt[dist_list[i][1]] += (dist_list[0][0] - dist_list[i][0])/(dist_list[0][0] - dist_list[-1][0])
                 # print((dist_list[0][0] - dist_list[i][0]) / (dist_list[0][0] - dist_list[-1][0]))
+                if np.fabs(dist_list[0][0] - dist_list[-1][0]) < 1e-5:
+                    # print('use this similar equal weight')
+                    cnt[dist_list[i][1]] += 1
+                else:
+                    cnt[dist_list[i][1]] += (np.sqrt(dist_list[0][0]) - np.sqrt(dist_list[i][0])) / (
+                    np.sqrt(dist_list[0][0]) - np.sqrt(dist_list[-1][0]))
         return cnt.argmax()
 
 class KDTree_like_sklearn(object):
